@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export default function Hero() {
   return (
-    <div className="relative hero min-h-screen place-items-start items-center">
+    <section className="relative min-h-screen flex items-center">
       {/* Video Background */}
       <video
         muted
@@ -13,61 +15,83 @@ export default function Hero() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black opacity-50"></div>
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black opacity-25"></div>
 
       {/* Hero Content */}
-      <div className="items-start box-border text-white/[0.65] flex-col justify-start leading-7 relative w-[41.88rem] flex px-[10%]">
-        <div className="h-64 mb-6 w-[41.88rem]">
-          <div className="h-20 w-[41.88rem] overflow-hidden">
-            <h1
-              className="text-white text-[5.00rem] leading-none italic font-bold h-20 leading-[5.38rem] relative uppercase w-[41.88rem]"
-              style={{
-                letterSpacing: "0px",
-              }}
-            >
-              The Fastest Way to
-            </h1>
-          </div>
-          <div className="h-20 w-[41.88rem] overflow-hidden">
-            <h1
-              className="text-white text-[5.00rem] leading-none italic font-bold h-20 leading-[5.38rem] relative uppercase w-[41.88rem]"
-              style={{
-                letterSpacing: "0px",
-              }}
-            >
-              Become a <span className="text-amber-400 italic">Better</span>
-            </h1>
-          </div>
-          <div className="h-20 w-[41.88rem] overflow-hidden">
-            <h1
-              className="text-white text-[5.00rem] leading-none italic font-bold h-20 leading-[5.38rem] relative uppercase w-[41.88rem]"
-              style={{
-                letterSpacing: "0px",
-              }}
-            >
-              <span className="text-amber-400 italic">Athlete</span>
-            </h1>
-          </div>
-        </div>
-        <div className="h-16 mb-10 w-[32.50rem]">
-          <div className="h-16 w-[32.50rem] overflow-hidden">
-            <p className="text-lg h-16 leading-8 w-[32.50rem]">
-              Train Hard. Get Strong. Conquer Every Challenge.
-            </p>
-          </div>
-        </div>
-        <div className="h-16 w-44 overflow-hidden">
-          <a
-            className="flex text-white cursor-pointer text-sm font-medium h-16 leading-5 py-2 px-2 text-center uppercase w-44 inline-block border-2 border-white border-solid content-center"
-            style={{
-              letterSpacing: "2px",
-            }}
-          >
-            Join the Colosseum
-          </a>
-        </div>
+      <div className="relative text-white/65 flex flex-col items-start px-[10%]">
+        <h1 className="text-white text-[5rem] leading-[5.38rem] italic font-bold uppercase">
+          The Fastest Way to <br />
+          <span className="block">
+            Become a <span className="text-amber-400 italic">Better</span>
+          </span>
+          <span className="block text-amber-400 italic">Athlete</span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-lg mt-6">
+          Train Hard. Get Strong. Conquer Every Challenge.
+        </p>
+
+        {/* CTA Button */}
+        <Link
+          href="/join"
+          className="mt-10 inline-flex items-center justify-center h-16 w-44 border-2 border-white text-sm font-medium uppercase tracking-widest transition hover:bg-white hover:text-black"
+        >
+          Join the Colosseum
+        </Link>
       </div>
-    </div>
+
+      {/* Hero Bottom Cards */}
+      <div className="w-screen grid grid-cols-3 gap-0 absolute bottom-0 hidden sm:grid">
+        <HeroCard
+          title="Classes"
+          description="Push your limits in high-intensity group workouts led by elite trainers. Strength, endurance, and agility—master them all."
+          imgSrc="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6087279eae55b8446af5939d_icon_5.svg"
+          link="#"
+        />
+        <HeroCard
+          title="Training"
+          description="Elite training programs tailored for peak performance and endurance."
+          imgSrc="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6087279ec433ac2a49bfa663_icon_2.svg"
+          link="#"
+        />
+        <HeroCard
+          title="Nutrition"
+          description="Optimize your diet with expert-guided meal plans for peak results."
+          imgSrc="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6087279ecc559056af584d94_icon_1.svg"
+          link="#"
+        />
+      </div>
+    </section>
+  );
+}
+
+// 🔥 Reusable Hero Card Component
+function HeroCard({
+  title,
+  description,
+  imgSrc,
+  link,
+}: {
+  title: string;
+  description: string;
+  imgSrc: string;
+  link: string;
+}) {
+  return (
+    <Link
+      href={link}
+      className="items-start box-border text-amber-400 cursor-pointer flex-col h-48 justify-start leading-7 w-full flex overflow-hidden py-12 px-20 bg-transparent 
+      border-l-1 border-t-1 border-t-white/15 border-l-white/15 hover:bg-stone-900 transition"
+    >
+      <div className="flex items-center h-10 mb-4">
+        <img className="h-9 mr-3 w-9" src={imgSrc} alt={`${title} icon`} />
+        <h3 className="text-white text-4xl italic font-bold uppercase">
+          {title}
+        </h3>
+      </div>
+      <p className="text-white/[0.65] h-14">{description}</p>
+    </Link>
   );
 }

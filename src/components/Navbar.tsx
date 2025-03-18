@@ -1,101 +1,79 @@
-"use client;";
+"use client";
 
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
-  return (
-    <div>
-      <style
-        dangerouslySetInnerHTML={{
-          __html:
-            "@media (max-width: 767px) {\n/* DivMagic Note: Tailwind does not support max-width. We will fix this soon. */\n\n#a-1 {\npadding-left: 10px !important;\n}\n}\n@media (max-width: 991px) {\n/* DivMagic Note: Tailwind does not support max-width. We will fix this soon. */\n\n#nav-1 {\ndisplay: none !important;\n}\n}\n",
-        }}
-      />
+  const [isOpen, setIsOpen] = useState(false);
 
-      <div className="items-stretch border-b-white/[0.15] border-b-2 box-border text-white/[0.65] h-16 justify-between leading-7 w-full flex border-solid bg-stone-950">
-        <a
-          className="items-center border-r-white/[0.15] border-r-2 text-zinc-800 cursor-pointer flex-col float-left h-16 justify-center py-1.5 px-7 relative w-40 flex border-solid"
-          id="a-1"
-        >
-          <img
-            className="h-16 max-w-full align-middle w-24 inline-block overflow-clip"
-            src="/logo.svg"
-            style={{
-              overflowClipMargin: "content-box",
-            }}
-          />
-        </a>
-        <div className="items-center h-16 justify-center w-[49.75rem] flex">
-          <nav
-            className="items-stretch float-right h-16 justify-center relative w-[45.38rem] flex"
-            id="nav-1"
-          >
-            <div className="h-16 relative w-32 inline-block m-auto">
-              <div
-                className="items-center border-l-white/[0.15] border-l-2 text-white cursor-pointer text-sm font-medium h-full justify-center leading-5 py-7 px-8 relative text-center uppercase select-none w-32 flex border-solid m-auto"
-                style={{
-                  letterSpacing: "2px",
-                }}
-              >
-                <div className="h-5 w-12">Home</div>
-                <div className="text-xs h-4 leading-3 my-auto ml-1 relative w-4" />
-              </div>
-            </div>
-            <div className="h-16 relative w-40 inline-block m-auto">
-              <div
-                className="items-center border-l-white/[0.15] border-l-2 text-white cursor-pointer text-sm font-medium h-full justify-center leading-5 py-7 px-8 relative text-center uppercase select-none w-40 flex border-solid m-auto"
-                style={{
-                  letterSpacing: "2px",
-                }}
-              >
-                <div className="h-5 w-20">About</div>
-                <div className="text-xs h-4 leading-3 my-auto ml-1 relative w-4" />
-              </div>
-            </div>
-            <div className="h-16 relative w-32 inline-block m-auto">
-              <div
-                className="items-center border-l-white/[0.15] border-l-2 text-white cursor-pointer text-sm font-medium h-full justify-center leading-5 py-7 px-8 relative text-center uppercase select-none w-32 flex border-solid m-auto"
-                style={{
-                  letterSpacing: "2px",
-                }}
-              >
-                <div className="h-5 w-12">Media</div>
-                <div className="text-xs h-4 leading-3 my-auto ml-1 relative w-4" />
-              </div>
-            </div>
-            <a
-              className="items-center border-l-white/[0.15] border-l-2 text-white cursor-pointer text-sm font-medium h-16 justify-center leading-5 py-7 px-8 relative text-center uppercase w-28 flex border-solid m-auto"
-              style={{
-                letterSpacing: "2px",
-              }}
-            >
-              Shop
-            </a>
-            <a
-              className="items-center bg-amber-400 text-stone-950 cursor-pointer text-sm font-medium h-16 justify-center leading-5 py-7 px-8 text-center uppercase w-52 flex"
-              style={{
-                letterSpacing: "2px",
-              }}
-            >
-              Become a Member
-            </a>
-          </nav>
-          <div className="border-l-white/[0.15] border-l-2 h-full relative w-16 inline-block border-solid">
-            <a
-              className="items-center text-white cursor-pointer h-full justify-center max-w-full min-w-[4.25rem] relative w-16 flex p-3"
-            >
-              <img
-                className="h-5 max-w-full align-middle w-5 inline-block overflow-clip"
-                src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c8a4078749877bf5d7b95_cart.svg"
-                style={{
-                  overflowClipMargin: "content-box",
-                }}
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+  return (
+    <header className="flex h-16 w-full items-center justify-between bg-stone-950 border-b-2 border-b-white/15 text-white/65">
+      {/* Logo */}
+      <Link href="/" className="flex items-center py-2 px-6 border-r border-white/15 hover:bg-[var(--dark-hover)] transition">
+        <Image src="/logo.svg" alt="Logo" width={96} height={64} className="h-16" />
+      </Link>
+
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center space-x-6">
+        <NavLink href="/" label="Home" hasBorder/>
+        <NavLink href="/about" label="About" hasBorder/>
+        <NavLink href="/media" label="Media" hasBorder/>
+        <NavLink href="/shop" label="Shop" hasBorder />
+        <Link href="/join" className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition">
+          Become a Member
+        </Link>
+      </nav>
+
+      {/* Mobile Menu Button */}
+      <button onClick={() => setIsOpen(true)} className="md:hidden block text-white p-3">
+        <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path fillRule="evenodd" clipRule="evenodd" d="M4 6h16M4 12h16m-16 6h16" />
+        </svg>
+      </button>
+
+      {/* Mobile Slide-In Menu */}
+      {isOpen && <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />}
+    </header>
+  );
+}
+
+// 🔥 Mobile Slide-In Menu Component
+function MobileMenu({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: (open: boolean) => void }) {
+  return (
+    <motion.div
+      initial={{ x: "100%" }}
+      animate={{ x: 0 }}
+      exit={{ x: "100%" }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-0 right-0 h-screen w-64 bg-stone-900 text-white shadow-lg flex flex-col items-center pt-20 space-y-6"
+    >
+      {/* Close Button */}
+      <button onClick={() => setIsOpen(false)} className="absolute top-5 right-5 text-white">
+        ✕
+      </button>
+
+      <Link href="/" onClick={() => setIsOpen(false)} className="mobile-nav-link">Home</Link>
+      <Link href="/about" onClick={() => setIsOpen(false)} className="mobile-nav-link">About</Link>
+      <Link href="/media" onClick={() => setIsOpen(false)} className="mobile-nav-link">Media</Link>
+      <Link href="/shop" onClick={() => setIsOpen(false)} className="mobile-nav-link">Shop</Link>
+      <Link href="/join" onClick={() => setIsOpen(false)} className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition">
+        Become a Member
+      </Link>
+    </motion.div>
+  );
+}
+
+// 🔥 Reusable Navigation Link Component
+function NavLink({ href, label, hasBorder = false }: { href: string; label: string; hasBorder?: boolean }) {
+  return (
+    <Link
+      href={href}
+      className={`flex items-center h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white 
+      ${hasBorder ? "border-l border-white/15" : ""}`}
+    >
+      {label}
+    </Link>
   );
 }

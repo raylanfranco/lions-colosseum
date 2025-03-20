@@ -1,219 +1,86 @@
+import Image from "next/image";
+
 export default function Testimonials() {
   return (
-    <div>
-      <div
-        className="items-center border-t-neutral-700 border-t-2 box-border text-white/[0.65] flex-col h-[70.50rem] justify-center leading-7 py-32 px-5 w-[192.00rem] flex border-solid bg-stone-950"
-        id="div-1"
-      >
-        <div className="items-center flex-col h-[54.13rem] justify-center max-w-[75.00rem] w-full flex">
-          <div className="items-center flex-col h-24 justify-center px-1 relative text-center w-96 flex">
-            <div className="items-center h-5 justify-center mb-3 w-48 flex">
-              <div className="bg-amber-400 h-0.5 w-3.5" />
-              <div
-                className="text-amber-400 text-sm font-medium h-5 leading-5 uppercase w-36 m-3"
-                style={{
-                  letterSpacing: "2px",
-                }}
-              >
-                Success Stories
-              </div>
-              <div className="bg-amber-400 h-0.5 w-3.5" />
-            </div>
-            <h2
-              className="text-white text-[2.63rem] leading-none italic font-bold h-12 leading-[2.88rem] mb-7 max-w-[35.00rem] uppercase w-96"
-              style={{
-                letterSpacing: "0px",
-              }}
-            >
-              What our members say
-            </h2>
-          </div>
-          <div
-            className="items-start gap-x-9 auto-cols-fr grid-cols-[1fr_1fr_1fr] grid-rows-[auto] h-80 mt-3 w-full grid"
-            id="div-2"
-          >
-            <div
-              className="items-center flex-col h-80 justify-center py-56 px-40 relative text-center w-full border-2 border-white/[0.15] border-solid overflow-hidden"
-              id="div-3"
-            >
-              <div className="h-7 mb-4 w-72">
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-              </div>
-              <p className="h-28 mb-5 w-72">
-                Ut magna amet, a malesuada. Nibh in interdum at sem senectus
-                pulvinar aliquam orci. Adipiscing malesuada urna sed urna in
-                nunc volutpat.
-              </p>
-              <div className="text-white text-lg font-semibold h-7 w-72">
-                Edward Davidson
-              </div>
-            </div>
-            <div
-              className="items-center flex-col h-80 justify-center py-56 px-40 relative text-center w-full border-2 border-white/[0.15] border-solid overflow-hidden"
-              id="div-4"
-            >
-              <div className="h-7 mb-4 w-72">
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-              </div>
-              <p className="h-36 mb-5 w-72">
-                At diam blandit tellus neque fames nunc quisque magna. Venenatis
-                pharetra eget quis iaculis non aliquam. Massa metus integer
-                suspendisse purus fermentum neque.
-              </p>
-              <div className="text-white text-lg font-semibold h-7 w-72">
-                Abigayle Jordan
-              </div>
-            </div>
-            <div
-              className="items-center flex-col h-80 justify-center py-56 px-40 relative text-center w-full border-2 border-white/[0.15] border-solid overflow-hidden"
-              id="div-5"
-            >
-              <div className="h-7 mb-4 w-72">
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-                <img
-                  className="h-6 max-w-full align-middle w-6 inline-block overflow-clip m-1"
-                  src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6089de6e8613a535a838faad_star.svg"
-                  style={{
-                    overflowClipMargin: "content-box",
-                  }}
-                />
-              </div>
-              <p className="h-28 mb-5 w-72">
-                Duis non enim fermentum, viverra sit vulputate morbi. Non lorem
-                morbi consectetur porta placerat cras at. Tempor mauris, amet,
-                eget. Arcu.
-              </p>
-              <div className="text-white text-lg font-semibold h-7 w-72">
-                Leo Gibson
-              </div>
-            </div>
-          </div>
-          <div className="items-start flex-col h-96 justify-center mt-12 py-24 pl-24 pr-96 relative w-full flex border-2 border-white/[0.15] border-solid overflow-hidden">
-            <div className="h-56 relative w-96">
-              <h2
-                className="text-white text-[2.63rem] leading-none italic font-bold h-36 leading-[2.88rem] mb-7 max-w-[35.00rem] uppercase w-96"
-                style={{
-                  letterSpacing: "0px",
-                }}
-              >
-                Are you looking to start training with a{" "}
-                <span className="text-amber-400 italic">personal trainer?</span>
-              </h2>
-              <a
-                className="text-white cursor-pointer text-sm font-medium h-16 leading-5 py-6 px-8 text-center uppercase w-44 inline-block border-2 border-white border-solid"
-                style={{
-                  letterSpacing: "2px",
-                }}
-              >
-                Get Started
-              </a>
-            </div>
-            <img
-              className="h-full object-cover absolute align-middle w-full inline-block overflow-clip"
-              src="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1.jpeg"
-              srcSet="https://assets-global.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1-p-800.jpeg 800w, https://assets-global.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1-p-1080.jpeg 1080w, https://assets-global.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1.jpeg 1494w"
-              style={{
-                overflowClipMargin: "content-box",
-              }}
-            />
-          </div>
+    <section className="bg-stone-950 border-t-2 border-t-neutral-700 text-white py-32 px-5 flex flex-col items-center">
+      {/* Section Title */}
+      <div className="text-center">
+        <div className="flex items-center justify-center mb-3">
+          <div className="bg-amber-400 h-0.5 w-4" />
+          <span className="text-amber-400 text-sm font-medium uppercase tracking-widest mx-3">
+            Success Stories
+          </span>
+          <div className="bg-amber-400 h-0.5 w-4" />
         </div>
+        <h2 className="text-[2.63rem] leading-[2.88rem] italic font-bold uppercase">
+          What our members say
+        </h2>
       </div>
+
+      {/* Testimonials Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-9 mt-10 w-full max-w-6xl">
+        <TestimonialCard
+          name="Edward Davidson"
+          review="Ut magna amet, a malesuada. Nibh in interdum at sem senectus pulvinar aliquam orci."
+        />
+        <TestimonialCard
+          name="Abigayle Jordan"
+          review="At diam blandit tellus neque fames nunc quisque magna. Venenatis pharetra eget quis iaculis non aliquam."
+        />
+        <TestimonialCard
+          name="Leo Gibson"
+          review="Duis non enim fermentum, viverra sit vulputate morbi. Non lorem morbi consectetur porta placerat cras at."
+        />
+      </div>
+
+      {/* Call to Action */}
+      <div
+        className="relative mt-[50px] w-full max-w-5xl border-2 border-white/15 py-[3%] pr-[20%] pl-[3%] flex flex-col md:flex-col items-start justify-between bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url(https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1.jpeg)",
+        }}
+      >
+        <h2 className="text-[2.63rem] leading-[2.88rem] italic font-bold uppercase">
+          Ready to get started?<br></br>{" "}
+          <span className="text-amber-400 italic">Enter the Colosseum.</span>
+        </h2>
+        <a
+          href="/join"
+          className="mt-6 bg-transparent border-2 border-white text-sm font-medium uppercase tracking-widest py-4 px-6 hover:bg-white hover:text-black transition"
+        >
+          Get Started
+        </a>
+      </div>
+    </section>
+  );
+}
+
+// 🔥 Reusable Testimonial Card Component
+function TestimonialCard({ name, review }: { name: string; review: string }) {
+  return (
+    <div className="border-2 border-white/15 p-8 text-center">
+      {/* Star Rating */}
+      <div className="flex justify-center mb-4">
+        {Array(5)
+          .fill(0)
+          .map((_, i) => (
+            <Image
+              key={i}
+              src="/star.svg"
+              alt="Star"
+              width={24}
+              height={24}
+              className="mx-1"
+            />
+          ))}
+      </div>
+
+      {/* Testimonial Text */}
+      <p className="text-lg mb-5">{review}</p>
+
+      {/* Name */}
+      <h4 className="text-lg font-semibold">{name}</h4>
     </div>
   );
 }

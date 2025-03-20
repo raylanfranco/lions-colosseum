@@ -45,7 +45,7 @@ export default function Hero() {
       {/* Hero Bottom Cards */}
       <div className="w-screen grid grid-cols-3 gap-0 absolute bottom-0 hidden sm:grid">
         <HeroCard
-          title="Classes"
+          title="Competitions"
           description="Push your limits in high-intensity group workouts led by elite trainers. Strength, endurance, and agility—master them all."
           imgSrc="https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/6087279eae55b8446af5939d_icon_5.svg"
           link="#"

@@ -41,7 +41,7 @@ export default function About() {
         {/* Call to Action */}
         <Link
           href="#"
-          className="border-2 border-white text-white text-sm font-medium uppercase tracking-widest px-8 py-4 transition hover:bg-white hover:text-black w-36"
+          className="border-2 border-white text-white text-sm font-medium uppercase tracking-widest px-8 py-4 transition hover:bg-white hover:text-black w-36 text-center"
         >
           About Us
         </Link>

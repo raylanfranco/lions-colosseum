@@ -49,10 +49,11 @@ export default function Navbar() {
         <NavLink href="/shop" label="Shop" hasBorder />
         <Link
           href="/join"
-          className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+          className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 mr-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
         >
           Become a Member
         </Link>
+        <NavLink href="/login" label="Log In" loginButton />
       </nav>
 
       {/* Mobile Menu Button */}
@@ -134,6 +135,13 @@ function MobileMenu({
       >
         Become a Member
       </Link>
+      <Link
+        href="/login"
+        onClick={() => setIsOpen(false)}
+        className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+      >
+        Log In
+      </Link>
     </motion.div>
   );
 }
@@ -143,16 +151,20 @@ function NavLink({
   href,
   label,
   hasBorder = false,
+  loginButton,
 }: {
   href: string;
   label: string;
   hasBorder?: boolean;
+  loginButton?: boolean;
 }) {
   return (
     <Link
       href={href}
       className={`flex items-center h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white 
-      ${hasBorder ? "border-l border-white/15" : ""}`}
+      ${hasBorder ? "border-l border-white/15" : ""} ${
+        loginButton ? "bg-stone-900" : ""
+      } `}
     >
       {label}
     </Link>

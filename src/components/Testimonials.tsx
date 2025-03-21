@@ -35,7 +35,7 @@ export default function Testimonials() {
 
       {/* Call to Action */}
       <div
-        className="relative mt-[50px] w-full max-w-5xl border-2 border-white/15 py-[3%] pr-[20%] pl-[3%] flex flex-col md:flex-col items-start justify-between bg-cover bg-center"
+        className="relative mt-[50px] w-full max-w-6xl border-2 border-white/15 py-[3%] pr-[20%] pl-[3%] flex flex-col md:flex-col items-start justify-between bg-cover bg-center"
         style={{
           backgroundImage:
             "url(https://cdn.prod.website-files.com/60831bedfbf8fb4bf3dcb9f8/608c4e98eb03873de53e8ac3_banner_1.jpeg)",

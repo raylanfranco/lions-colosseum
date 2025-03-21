@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -47,13 +49,27 @@ export default function Navbar() {
         <NavLink href="/about" label="About" hasBorder />
         <NavLink href="/media" label="Media" hasBorder />
         <NavLink href="/shop" label="Shop" hasBorder />
-        <Link
-          href="/join"
-          className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 mr-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
-        >
-          Become a Member
-        </Link>
-        <NavLink href="/login" label="Log In" loginButton />
+        {!session && (
+          <>
+            <Link
+              href="/join"
+              className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+            >
+              Become a Member
+            </Link>
+            <NavLink href="/login" label="Log In" loginButton />
+          </>
+        )}
+
+        {/* Show only if logged in */}
+        {session && (
+          <button
+            onClick={() => signOut()}
+            className="flex items-center h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
+          >
+            Log Out
+          </button>
+        )}
       </nav>
 
       {/* Mobile Menu Button */}
@@ -84,6 +100,8 @@ function MobileMenu({
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }) {
+  const { data: session } = useSession();
+
   return (
     <motion.div
       initial={{ x: "100%" }}
@@ -128,20 +146,34 @@ function MobileMenu({
       >
         Shop
       </Link>
-      <Link
-        href="/join"
-        onClick={() => setIsOpen(false)}
-        className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
-      >
-        Become a Member
-      </Link>
-      <Link
-        href="/login"
-        onClick={() => setIsOpen(false)}
-        className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
-      >
-        Log In
-      </Link>
+      {!session ? (
+        <>
+          <Link
+            href="/join"
+            onClick={() => setIsOpen(false)}
+            className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+          >
+            Become a Member
+          </Link>
+          <Link
+            href="/login"
+            onClick={() => setIsOpen(false)}
+            className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+          >
+            Log In
+          </Link>
+        </>
+      ) : (
+        <button
+          onClick={() => {
+            signOut();
+            setIsOpen(false);
+          }}
+          className="bg-stone-900 text-white px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-black transition"
+        >
+          Log Out
+        </button>
+      )}
     </motion.div>
   );
 }

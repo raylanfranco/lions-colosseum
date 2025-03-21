@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output = "./client"
 }
 
 datasource db {
@@ -9,9 +10,11 @@ datasource db {
 
 model User {
   id            String  @id @default(uuid())
-  name          String?
-  email         String? @unique
+  fullName      String
+  email         String @unique
+  phoneNumber   String
   password      String
+  avatar        String?
   emailVerified DateTime?
   image         String?
   accounts      Account[]

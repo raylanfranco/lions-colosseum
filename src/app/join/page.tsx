@@ -1,6 +1,26 @@
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function Join() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [error, setError] = useState("");
+
+  if (session) {
+    router.push("/dashboard");
+    return null;
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <section className="flex justify-center items-center bg-stone-950 pt-16 text-white">
       <div className=" w-full text-center lg:text-left px-[120px]">
@@ -25,18 +45,29 @@ export default function Join() {
         </p>
 
         {/* Form */}
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-lg mx-auto lg:mx-0">
-          <InputField type="text" placeholder="First Name" />
-          <InputField type="text" placeholder="Last Name" />
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-lg mx-auto lg:mx-0"
+        >
+          <InputField
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
           <InputField
             type="email"
             placeholder="Email"
             className="md:col-span-2"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <InputField
             type="tel"
             placeholder="Phone Number"
             className="md:col-span-2"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
 
           {/* Submit Button */}
@@ -60,21 +91,26 @@ export default function Join() {
   );
 }
 
-// 🔥 Reusable InputField Component
 function InputField({
   type,
   placeholder,
   className = "",
+  value,
+  onChange,
 }: {
   type: string;
   placeholder: string;
   className?: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <input
       type={type}
       placeholder={placeholder}
       className={`bg-transparent border-2 border-white/[0.15] text-white py-4 px-5 w-full focus:outline-none focus:ring-2 focus:ring-amber-400 ${className}`}
+      value={value}
+      onChange={onChange}
     />
   );
 }

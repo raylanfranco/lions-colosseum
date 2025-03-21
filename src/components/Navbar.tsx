@@ -53,7 +53,7 @@ export default function Navbar() {
           <>
             <Link
               href="/join"
-              className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+              className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 m-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
             >
               Become a Member
             </Link>
@@ -64,8 +64,8 @@ export default function Navbar() {
         {/* Show only if logged in */}
         {session && (
           <button
-            onClick={() => signOut()}
-            className="flex items-center h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="flex items-center cursor-pointer h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
           >
             Log Out
           </button>
@@ -151,7 +151,7 @@ function MobileMenu({
           <Link
             href="/join"
             onClick={() => setIsOpen(false)}
-            className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+            className="bg-[var(--accent)] text-[var(--background)] px-6 py-3 m-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
           >
             Become a Member
           </Link>

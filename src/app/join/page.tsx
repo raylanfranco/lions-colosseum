@@ -1,6 +1,8 @@
-import { useSession } from "next-auth/react";
+"use client";
+
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Join() {
@@ -19,6 +21,31 @@ export default function Join() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fullName, email, password, phoneNumber }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setError(data.message || "Something went wrong");
+      return;
+    }
+
+    const signInRes = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    if (signInRes?.ok) {
+      router.push("/dashboard");
+    } else {
+      setError("Sign-in failed after registration.");
+    }
   };
 
   return (
@@ -52,6 +79,7 @@ export default function Join() {
           <InputField
             type="text"
             placeholder="Full Name"
+            className="md:col-span-2"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
@@ -69,11 +97,17 @@ export default function Join() {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
-
+          <InputField
+            type="password"
+            placeholder="Password"
+            className="md:col-span-2"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           {/* Submit Button */}
           <button
             type="submit"
-            className="col-span-1 md:col-span-2 border-2 border-white text-white text-sm font-medium uppercase tracking-widest py-4 px-8 transition hover:bg-white hover:text-black"
+            className="col-span-1 md:col-span-2 border-2 border-white text-white cursor-pointer text-sm font-medium uppercase tracking-widest py-4 px-8 transition hover:bg-white hover:text-black"
           >
             Submit
           </button>

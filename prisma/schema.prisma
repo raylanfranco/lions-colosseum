@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output = "./client"
 }
 
 datasource db {
@@ -19,6 +18,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  resetToken    String?
+  resetTokenExpiry    DateTime?
 }
 
 model Account {

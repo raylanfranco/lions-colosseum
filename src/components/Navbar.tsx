@@ -63,12 +63,20 @@ export default function Navbar() {
 
         {/* Show only if logged in */}
         {session && (
-          <button
-            onClick={() => signOut({ callbackUrl: "/" })}
-            className="flex items-center cursor-pointer h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
-          >
-            Log Out
-          </button>
+          <>
+            <Link
+              href="/dashboard"
+              className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 m-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+            >
+              View Dashboard
+            </Link>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="flex items-center cursor-pointer h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
+            >
+              Log Out
+            </button>
+          </>
         )}
       </nav>
 
@@ -164,15 +172,20 @@ function MobileMenu({
           </Link>
         </>
       ) : (
-        <button
-          onClick={() => {
-            signOut();
-            setIsOpen(false);
-          }}
-          className="bg-stone-900 text-white px-6 py-3 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-black transition"
-        >
-          Log Out
-        </button>
+        <>
+          <Link
+            href="/dashboard"
+            className="bg-[var(--accent)] text-[var(--background)] px-8 py-6 m-0 uppercase text-sm font-medium tracking-widest hover:bg-white hover:text-[var(--background)] transition"
+          >
+            View Dashboard
+          </Link>
+          <button
+            onClick={() => signOut({ callbackUrl: "/" })}
+            className="flex items-center cursor-pointer h-16 px-8 m-0 uppercase text-sm font-medium tracking-widest transition hover:bg-[var(--dark-hover)] hover:text-white bg-stone-900"
+          >
+            Log Out
+          </button>
+        </>
       )}
     </motion.div>
   );

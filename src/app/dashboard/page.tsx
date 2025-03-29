@@ -32,7 +32,7 @@ export default function Dashboard() {
 
         {/* Greeting */}
         <h1 className="text-[3.63rem] leading-[3.88rem] italic font-bold uppercase mb-7">
-          Hello, {session?.user?.name || "Warrior"}!
+          Hello, {session?.user?.fullName || "Warrior"}!
         </h1>
 
         <p className="text-lg mb-9 max-w-lg">

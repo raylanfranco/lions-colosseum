@@ -56,7 +56,6 @@ export default function Testimonials() {
   );
 }
 
-// 🔥 Reusable Testimonial Card Component
 function TestimonialCard({ name, review }: { name: string; review: string }) {
   return (
     <div className="border-2 border-white/15 p-8 text-center">

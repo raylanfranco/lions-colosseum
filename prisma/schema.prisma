@@ -20,6 +20,20 @@ model User {
   sessions      Session[]
   resetToken    String?
   resetTokenExpiry    DateTime?
+
+  messagesSent      Message[] @relation("Sender")
+  messagesReceived  Message[] @relation("Receiver")
+}
+
+model Message {
+  id         String   @id @default(uuid())
+  senderId   String
+  receiverId String
+  content    String
+  timestamp  DateTime @default(now())
+
+  sender     User     @relation("Sender", fields: [senderId], references: [id])
+  receiver   User     @relation("Receiver", fields: [receiverId], references: [id])
 }
 
 model Account {

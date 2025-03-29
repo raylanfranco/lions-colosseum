@@ -1,24 +1,26 @@
-'use client';
+"use client";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Navbar from "@/components/Navbar";
-import { roboto } from '@/app/ui/fonts';
+import { roboto } from "@/app/ui/fonts";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
+  const pathname = usePathname();
+  const isDashboard = pathname.startsWith("/dashboard");
+
   return (
-      <html lang="en">
-        <body
-          className={`${roboto.className} antialiased`}
-        >
-          <SessionProvider>
-            <Navbar />
-            {children}
-          </SessionProvider>
-        </body>
-      </html>
+    <html lang="en">
+      <body className={`${roboto.className} antialiased`}>
+        <SessionProvider>
+          {!isDashboard && <Navbar />}
+          {children}
+        </SessionProvider>
+      </body>
+    </html>
   );
 }

@@ -4,6 +4,7 @@ import { SessionProvider } from "next-auth/react";
 import Navbar from "@/components/Navbar";
 import { roboto } from "@/app/ui/fonts";
 import { usePathname } from "next/navigation";
+import Footer from "@/components/Footer";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
         <SessionProvider>
           {!isDashboard && <Navbar />}
           {children}
+          <Footer />
         </SessionProvider>
       </body>
     </html>

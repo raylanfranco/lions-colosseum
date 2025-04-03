@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import ChatInput from "./ChatInput";
+import { getSocket } from "@/lib/socket";
 
 interface Message {
   id: string;
@@ -34,25 +35,41 @@ export default function ChatView({
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    setMessages(initialMessages);
+  }, [initialMessages]);
+
+  useEffect(() => {
+    const socket = getSocket();
+
+    socket.on("receive-message", (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.off("receive-message");
+    };
+  }, []);
+
   const handleSendMessage = async (content: string) => {
-    try {
-      const res = await fetch("/api/message/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          senderId: currentUserId,
-          receiverId: selectedUserId,
-          content,
-        }),
-      });
+    const newMsg = {
+      senderId: currentUserId,
+      receiverId: selectedUserId,
+      content,
+    };
 
-      if (!res.ok) throw new Error("Message send failed");
+    const res = await fetch("/api/message/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newMsg),
+    });
 
-      const newMessage = await res.json();
-      setMessages((prev) => [...prev, newMessage]);
-    } catch (error) {
-      console.error("Send Message Error:", error);
-    }
+    const savedMsg = await res.json();
+
+    const socket = getSocket();
+    socket.emit("send-message", savedMsg);
+
+    setMessages((prev) => [...prev, savedMsg]);
   };
 
   return (

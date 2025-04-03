@@ -56,16 +56,14 @@ export default function InboxPage() {
   if (!session || !currentUserId) return null;
 
   // Group messages by conversation partner
-  const conversations = messages.reduce(
-    (acc: Record<string, Message[]>, msg) => {
-      const partner =
-        msg.senderId === currentUserId ? msg.receiver : msg.sender;
-      if (!acc[partner.id]) acc[partner.id] = [];
-      acc[partner.id].push(msg);
-      return acc;
-    },
-    {}
-  );
+  const conversations = messages.reduce((acc: Record<string, Message[]>, msg) => {
+    const partner = msg.senderId === currentUserId ? msg.receiver : msg.sender;
+
+    if (!acc[partner.id]) acc[partner.id] = [];
+    acc[partner.id].push(msg);
+
+    return acc;
+  }, {});
 
   return (
     <div className="flex w-full h-[calc(100vh-64px)] bg-stone-900">

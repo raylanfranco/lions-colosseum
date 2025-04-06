@@ -8,21 +8,29 @@ datasource db {
 }
 
 model User {
-  id            String  @id @default(uuid())
+  id            String   @id @default(uuid())
   fullName      String
-  email         String @unique
+  email         String   @unique
   phoneNumber   String
   password      String
   avatar        String?
   emailVerified DateTime?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
   resetToken    String?
-  resetTokenExpiry    DateTime?
+  resetTokenExpiry DateTime?
 
+  role          Role     @default(USER) // 👈 New field
   messagesSent      Message[] @relation("Sender")
   messagesReceived  Message[] @relation("Receiver")
+  accounts          Account[]
+  sessions          Session[]
+
+  eventsCreated Event[] @relation("CreatedEvents")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Message {
@@ -65,4 +73,21 @@ model VerificationToken {
   token      String   @unique
   expires    DateTime
   @@unique([identifier, token])
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  photo       String?
+  location    String
+  price       Float    @default(0)
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+
+  createdById String
+  createdBy   User     @relation("CreatedEvents", fields: [createdById], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

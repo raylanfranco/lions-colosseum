@@ -9,7 +9,7 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  if (session?.user.role !== "admin") {
+  if (session?.user.role.toLowerCase() !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
@@ -24,7 +24,7 @@ export async function PUT(
       photo,
       location,
       price,
-      date: new Date(date),
+      startDate: new Date(date),
     },
   });
 
@@ -36,7 +36,7 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const session = await getServerSession(authOptions);
-  if (session?.user.role !== "admin") {
+  if (session?.user.role.toLowerCase() !== "admin") {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

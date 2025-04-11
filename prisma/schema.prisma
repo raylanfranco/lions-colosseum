@@ -25,6 +25,7 @@ model User {
   accounts          Account[]
   sessions          Session[]
 
+  posts Post[] @relation("UserPosts")
   eventsCreated Event[] @relation("CreatedEvents")
 }
 
@@ -90,4 +91,14 @@ model Event {
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  content   String
+  photo     String?
+  createdAt DateTime @default(now())
+
+  authorId  String
+  author    User     @relation("UserPosts", fields: [authorId], references: [id])
 }

@@ -33,9 +33,9 @@ export default function About() {
 
         {/* Description */}
         <p className="text-lg leading-8 mb-9 max-w-lg">
-          Ut magna amet, a malesuada. Nibh in interdum at sem senectus pulvinar
-          aliquam orci. Adipiscing malesuada urna sed urna in nunc volutpat
-          ipsum. Dictumst nunc et velit sed curabitur lobortis viverra sapien.
+          Born from a desire to elevate the everyday gym experience, Lion’s
+          Colosseum is where strength meets spirit. A space for community,
+          competition, and constant growth.
         </p>
 
         {/* Call to Action */}

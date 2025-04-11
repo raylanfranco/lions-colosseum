@@ -82,7 +82,7 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Alternative Sign-In */}
+        {/* Alternative Sign-In
         <div className="mt-6 text-center">
           <p className="text-sm text-white/70 mb-3">Or sign in with</p>
           <button
@@ -91,7 +91,7 @@ export default function Login() {
           >
             Sign in with Google
           </button>
-        </div>
+        </div> */}
 
         {/* Sign-up Redirect */}
         <p className="mt-6 text-center text-white/70 text-sm">

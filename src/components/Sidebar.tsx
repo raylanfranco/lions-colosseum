@@ -32,7 +32,21 @@ export default function Sidebar() {
         </Link>
       </div>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-col items-center py-6">
+        <Image
+          src={session?.user.image || "/placeholder-avatar.png"}
+          alt="User Avatar"
+          width={64}
+          height={64}
+          className="rounded-full border border-white/20 shadow-md mb-3"
+        />
+        <p className="text-white font-semibold text-sm uppercase">
+          {session?.user.fullName}
+        </p>
+        <p className="text-white/40 text-xs italic">Team Placeholder</p>
+      </div>
+
+      <div className="flex-1 flex flex-col text-center">
         {links.map((link) => (
           <Link
             key={link.href}
@@ -64,7 +78,7 @@ export default function Sidebar() {
 
       <button
         onClick={() => signOut({ callbackUrl: "/" })}
-        className="px-6 py-4 text-sm font-medium uppercase tracking-widest text-red-400 hover:text-white hover:bg-stone-800 transition"
+        className="px-6 py-4 cursor-pointer text-sm font-medium uppercase tracking-widest text-red-400 hover:text-white hover:bg-stone-800 transition"
       >
         Log Out
       </button>

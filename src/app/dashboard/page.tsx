@@ -91,7 +91,7 @@ export default function Dashboard() {
           />
           <button
             onClick={handleCreatePost}
-            className="mt-2 bg-amber-400 text-black px-4 py-2 rounded hover:bg-amber-300 font-bold"
+            className="mt-2 bg-amber-400 cursor-pointer text-black px-4 py-2 rounded hover:bg-amber-300 font-bold"
           >
             Post
           </button>
@@ -102,32 +102,38 @@ export default function Dashboard() {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-stone-800 p-4 rounded-lg border border-white/10"
+              className="bg-stone-800 p-5 rounded-xl border border-white/10 shadow-sm hover:shadow-lg transition duration-300 hover:scale-[1.01]"
             >
-              <div className="flex items-center space-x-3 mb-2">
+              <div className="flex items-center space-x-4 mb-3">
                 <Image
                   src={post.user.avatar || "/placeholder-avatar.png"}
                   alt={post.user.fullName}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
+                  width={40}
+                  height={40}
+                  className="rounded-full border border-white/20"
                 />
                 <div>
-                  <p className="text-sm font-medium">{post.user.fullName}</p>
-                  <p className="text-xs text-white/50">
+                  <p className="text-base font-semibold">
+                    {post.user.fullName}
+                  </p>
+                  <p className="text-xs text-white/50 italic">
                     {new Date(post.createdAt).toLocaleString()}
                   </p>
                 </div>
               </div>
-              <p className="mb-2 text-sm text-white/90">{post.content}</p>
+              <p className="mb-3 text-sm text-white/90 leading-relaxed">
+                {post.content}
+              </p>
               {post.image && (
-                <Image
-                  src={post.image}
-                  alt="Post image"
-                  width={400}
-                  height={300}
-                  className="rounded-lg mt-2"
-                />
+                <div className="w-full h-64 overflow-hidden rounded-lg">
+                  <Image
+                    src={post.image}
+                    alt="Post image"
+                    width={400}
+                    height={256}
+                    className="w-full h-full object-cover rounded-lg border border-white/10"
+                  />
+                </div>
               )}
             </div>
           ))}
@@ -144,14 +150,17 @@ export default function Dashboard() {
               className="bg-stone-800 p-4 rounded-lg border border-white/10"
             >
               {event.photo && (
-                <Image
-                  src={event.photo}
-                  alt={event.title}
-                  width={400}
-                  height={200}
-                  className="rounded-md mb-2"
-                />
+                <div className="w-full h-48 overflow-hidden rounded-lg mb-3">
+                  <Image
+                    src={event.photo}
+                    alt={event.title}
+                    width={400}
+                    height={192}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
+
               <h3 className="text-lg font-semibold">{event.title}</h3>
               <p className="text-sm text-white/70">{event.location}</p>
               <p className="text-sm text-white/50">

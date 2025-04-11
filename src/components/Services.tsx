@@ -20,22 +20,22 @@ export default function Services() {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <ServiceCard
-            title="Classes"
-            description="Push your limits with high-energy, coach-led group sessions designed to build strength, endurance, and agility."
+            title="Competitions"
+            description="From monthly lifts to full-scale tournaments, our competitions are designed to test your edge and ignite your fire. Win or lose — you’ll level up."
             imgSrc="/service-ph-1.jpg"
             iconSrc="/competition.svg"
             topMargin="sm"
           />
           <ServiceCard
-            title="Personal Training"
-            description="Get customized, one-on-one coaching to maximize your progress and reach peak performance levels."
+            title="Training"
+            description="Access expert programming, guided sessions, and on-demand routines tailored to your goals — whether it’s strength, endurance, or aesthetics."
             imgSrc="/service-ph-2.jpg"
             iconSrc="/winner.svg"
             topMargin="md"
           />
           <ServiceCard
-            title="CrossFit"
-            description="Challenge yourself with high-intensity functional movements that build raw power, endurance, and discipline."
+            title="Nutrition"
+            description="Fuel the machine. Our curated nutrition resources and partnerships provide everything from meal plans to macro coaching."
             imgSrc="/service-ph-3.jpg"
             iconSrc="/tire.svg"
           />

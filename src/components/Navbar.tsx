@@ -47,8 +47,8 @@ export default function Navbar() {
       <nav className="hidden md:flex items-center space-x-6">
         <NavLink href="/" label="Home" hasBorder />
         <NavLink href="/about" label="About" hasBorder />
-        <NavLink href="/media" label="Media" hasBorder />
-        <NavLink href="/shop" label="Shop" hasBorder />
+        {/* <NavLink href="/media" label="Media" hasBorder /> */}
+        {/* <NavLink href="/shop" label="Shop" hasBorder /> */}
         {!session && (
           <>
             <Link
@@ -140,20 +140,20 @@ function MobileMenu({
       >
         About
       </Link>
-      <Link
+      {/* <Link
         href="/media"
         onClick={() => setIsOpen(false)}
         className="mobile-nav-link"
       >
         Media
-      </Link>
-      <Link
+      </Link> */}
+      {/* <Link
         href="/shop"
         onClick={() => setIsOpen(false)}
         className="mobile-nav-link"
       >
         Shop
-      </Link>
+      </Link> */}
       {!session ? (
         <>
           <Link

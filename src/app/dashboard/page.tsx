@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import EventCard from "@/components/EventCard";
 
 interface Post {
   id: string;
@@ -22,6 +23,7 @@ interface Event {
   location: string;
   startDate: string;
   photo?: string;
+  price: number;
 }
 
 export default function Dashboard() {
@@ -145,28 +147,7 @@ export default function Dashboard() {
         <h2 className="text-2xl font-bold mb-6 uppercase">Upcoming Events</h2>
         <div className="space-y-4">
           {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-stone-800 p-4 rounded-lg border border-white/10"
-            >
-              {event.photo && (
-                <div className="w-full h-48 overflow-hidden rounded-lg mb-3">
-                  <Image
-                    src={event.photo}
-                    alt={event.title}
-                    width={400}
-                    height={192}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-
-              <h3 className="text-lg font-semibold">{event.title}</h3>
-              <p className="text-sm text-white/70">{event.location}</p>
-              <p className="text-sm text-white/50">
-                {new Date(event.startDate).toLocaleDateString()}
-              </p>
-            </div>
+            <EventCard key={event.id} event={event} />
           ))}
         </div>
       </div>

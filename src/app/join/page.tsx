@@ -49,7 +49,7 @@ export default function Join() {
   };
 
   return (
-    <section className="flex justify-center items-center bg-stone-950 pt-16 text-white">
+    <section className="flex h-screen justify-center items-center bg-stone-950 pt-16 text-white">
       <div className=" w-full text-center lg:text-left px-[120px]">
         {/* Section Title */}
         <div className="flex items-center justify-center lg:justify-start mb-3">

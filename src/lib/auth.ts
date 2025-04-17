@@ -8,28 +8,18 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
-      credentials: {
-        email: {},
-        password: {},
-      },
+      credentials: { email: {}, password: {} },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null;
-
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials?.email },
         });
 
         if (
           !user ||
-          !(await bcrypt.compare(credentials.password, user.password))
-        )
+          !(await bcrypt.compare(credentials!.password, user.password))
+        ) {
           return null;
-
-        console.log("✅ Authorize Success:", {
-          id: user.id,
-          email: user.email,
-          fullName: user.fullName,
-        });
+        }
 
         return {
           id: user.id,
@@ -40,24 +30,21 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-
   callbacks: {
     async jwt({ token, user }) {
-      console.log("🐣 JWT Callback:", { token, user });
       if (user) {
-        token.sub = user.id;
+        token.role = (user as any).role;
         token.fullName = (user as any).fullName;
         token.email = user.email;
-        token.role = (user as any).role;
+        token.sub = user.id;
       }
       return token;
     },
     async session({ session, token }) {
-      console.log("🧠 Session Callback:", { session, token });
       if (session.user) {
         session.user.id = token.sub!;
+        session.user.role = token.role as "USER" | "ADMIN";
         session.user.fullName = token.fullName as string;
-        session.user.role = token.role as string;
       }
       return session;
     },

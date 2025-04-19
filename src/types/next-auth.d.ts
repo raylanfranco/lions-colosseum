@@ -8,6 +8,7 @@ declare module "next-auth" {
       email: string;
       fullName: string;
       role: "USER" | "ADMIN";
+      image?: string | null;
     };
   }
 
@@ -16,6 +17,7 @@ declare module "next-auth" {
     email: string;
     fullName: string;
     role: string;
+    image?: string | null;
   }
 }
 

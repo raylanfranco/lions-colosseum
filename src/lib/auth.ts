@@ -26,6 +26,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           fullName: user.fullName,
           role: user.role,
+          image: user.image,
         };
       },
     }),
@@ -37,6 +38,7 @@ export const authOptions: NextAuthOptions = {
         token.fullName = (user as any).fullName;
         token.email = user.email;
         token.sub = user.id;
+        token.image = (user as any).image;
       }
       return token;
     },
@@ -45,6 +47,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.sub!;
         session.user.role = token.role as "USER" | "ADMIN";
         session.user.fullName = token.fullName as string;
+        session.user.image = token.image as string;
       }
       return session;
     },

@@ -1,8 +1,11 @@
 "use client";
 
 import MediaUploadButton from "@/components/MediaUploadButton";
+import { useState } from "react";
 
 export default function AdminMediaPage() {
+  const [uploadUrl, setUploadUrl] = useState<string>();
+
   return (
     <section className="p-6 text-white">
       <div className="flex justify-between items-center mb-6">
@@ -12,7 +15,7 @@ export default function AdminMediaPage() {
 
       <div className="bg-stone-800 border border-white/10 rounded-lg p-6 shadow-md">
         <h2 className="text-xl font-semibold mb-4">Upload Media</h2>
-        <MediaUploadButton />
+        <MediaUploadButton onUploadComplete={setUploadUrl} />
       </div>
 
       {/* In future: Add a media gallery here with stored file URLs */}

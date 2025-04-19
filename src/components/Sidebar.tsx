@@ -22,7 +22,7 @@ export default function Sidebar() {
   const { data: session } = useSession();
   const pathname = usePathname();
 
-  console.log("Session role:", session?.user.role);
+  console.log("Session role:", session?.user);
 
   return (
     <aside className="w-64 bg-stone-900 h-screen fixed left-0 top-0 flex flex-col border-r border-white/10 z-50">
@@ -34,7 +34,7 @@ export default function Sidebar() {
 
       <div className="flex flex-col items-center py-6">
         <Image
-          src={session?.user.image || "/placeholder-avatar.png"}
+          src={session?.user?.image || "/placeholder-avatar.png"}
           alt="User Avatar"
           width={64}
           height={64}

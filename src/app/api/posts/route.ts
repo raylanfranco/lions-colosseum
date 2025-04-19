@@ -1,66 +1,95 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma"; // your Prisma instance
+import { prisma } from "@/lib/prisma";
+import type { NextRequest } from "next/server";
 
-export async function POST(req: Request) {
+export async function PATCH(req: any, context: any) {
+  const { id } = context.params;
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user?.email) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  const body = await req.json();
-  const { content, image } = body;
+  const { content } = await req.json();
 
-  if (!content && !image) {
-    return new NextResponse("Post must include content or image", {
-      status: 400,
-    });
-  }
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    select: { role: true },
+  });
 
-  try {
-    const post = await prisma.post.create({
-      data: {
-        content,
-        image,
-        user: {
-          connect: {
-            email: session.user.email,
-          },
-        },
-      },
+  const isAdmin = user?.role === "ADMIN";
+
+  if (!isAdmin) {
+    const post = await prisma.post.findUnique({
+      where: { id },
       include: {
         user: {
-          select: {
-            fullName: true,
-            avatar: true,
-          },
+          select: { email: true },
         },
       },
     });
 
-    return NextResponse.json(post);
-  } catch (err) {
-    console.error("Failed to create post:", err);
-    return new NextResponse("Failed to create post", { status: 500 });
+    if (!post || post.user.email !== session.user.email) {
+      return new NextResponse("Forbidden", { status: 403 });
+    }
   }
-}
 
-export async function GET() {
-  const posts = await prisma.post.findMany({
-    orderBy: {
-      createdAt: "desc",
+  const updated = await prisma.post.update({
+    where: { id },
+    data: {
+      content,
     },
     include: {
       user: {
         select: {
           fullName: true,
           avatar: true,
+          email: true,
         },
       },
     },
   });
 
-  return NextResponse.json(posts);
+  return NextResponse.json(updated);
+}
+
+export async function DELETE(req: any, context: any) {
+  const { id } = context.params;
+  const session = await getServerSession(authOptions);
+
+  if (!session || !session.user?.email) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email },
+    select: { role: true },
+  });
+
+  const isAdmin = user?.role === "ADMIN";
+
+  const post = await prisma.post.findUnique({
+    where: { id },
+    include: {
+      user: {
+        select: { email: true },
+      },
+    },
+  });
+
+  if (!post) {
+    return new NextResponse("Post not found", { status: 404 });
+  }
+
+  if (!isAdmin && post.user.email !== session.user.email) {
+    return new NextResponse("Forbidden", { status: 403 });
+  }
+
+  await prisma.post.delete({
+    where: { id },
+  });
+
+  return new NextResponse(null, { status: 204 });
 }

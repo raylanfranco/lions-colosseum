@@ -49,7 +49,7 @@ export async function POST(req: Request) {
         quantity: 1,
       },
     ],
-    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=true`,
+    success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?success=true&event=${event.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard?canceled=true`,
     metadata: {
       eventId: event.id,

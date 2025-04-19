@@ -1,10 +1,12 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import EventCard from "@/components/EventCard";
+import PostCreationComponent from "@/components/PostCreation";
+import Post from "@/components/Posts";
 
 interface Post {
   id: string;
@@ -14,6 +16,7 @@ interface Post {
   user: {
     fullName: string;
     avatar?: string | null;
+    email: string;
   };
 }
 
@@ -29,29 +32,86 @@ interface Event {
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const success = searchParams.get("success");
+  const purchasedEventId = searchParams.get("event");
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
-  const [newPost, setNewPost] = useState("");
+  const [purchasedEvents, setPurchasedEvents] = useState<string[]>([]);
 
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
+  const canEditOrDelete = (post: Post) =>
+    post.user.email === session?.user?.email ||
+    session?.user?.role.toLowerCase() === "admin";
+
+  const handleDelete = async (postId: string) => {
+    const res = await fetch(`/api/posts/${postId}`, { method: "DELETE" });
+    if (res.ok) {
+      setPosts((prev) => prev.filter((p) => p.id !== postId));
+    }
+  };
+
+  const handleEdit = async (postId: string, newContent: string) => {
+    const res = await fetch(`/api/posts/${postId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: newContent }),
+    });
+    if (res.ok) {
+      const updated = await res.json();
+      setPosts((prev) =>
+        prev.map((p) =>
+          p.id === postId ? { ...p, content: updated.content } : p
+        )
+      );
+    }
+  };
+
+  // Redirect if not authenticated
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/login");
     }
   }, [status, router]);
 
+  // Retrieve localStorage only when authenticated
+  useEffect(() => {
+    if (status === "authenticated") {
+      const stored = JSON.parse(
+        localStorage.getItem("purchasedEvents") || "[]"
+      );
+      setPurchasedEvents(stored);
+    }
+  }, [status]);
+
+  // Add event to localStorage if purchased
+  useEffect(() => {
+    if (status === "authenticated" && success && purchasedEventId) {
+      const existing = JSON.parse(
+        localStorage.getItem("purchasedEvents") || "[]"
+      );
+      if (!existing.includes(purchasedEventId)) {
+        existing.push(purchasedEventId);
+        localStorage.setItem("purchasedEvents", JSON.stringify(existing));
+        setPurchasedEvents(existing);
+      }
+    }
+  }, [status, success, purchasedEventId]);
+
+  // Fetch posts + events
   useEffect(() => {
     const fetchFeed = async () => {
       const res = await fetch("/api/posts");
       const data = await res.json();
-      console.log(`POSTS.`, data);
       setPosts(data);
     };
 
     const fetchEvents = async () => {
       const res = await fetch("/api/events");
       const data = await res.json();
-      console.log(`EVENTS.`, data);
       setEvents(data);
     };
 
@@ -59,18 +119,17 @@ export default function Dashboard() {
     fetchEvents();
   }, []);
 
-  const handleCreatePost = async () => {
-    if (!newPost.trim()) return;
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxImage(null);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
-    const res = await fetch("/api/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: newPost }),
-    });
-
-    const newCreatedPost = await res.json();
-    setPosts((prev) => [newCreatedPost, ...prev]);
-    setNewPost("");
+  // Handle new post created from the PostCreationComponent
+  const handlePostCreated = (newPost) => {
+    setPosts((prev) => [newPost, ...prev]);
   };
 
   if (status === "loading") {
@@ -83,61 +142,23 @@ export default function Dashboard() {
       <div className="w-2/3 p-8 border-r border-white/10">
         <h2 className="text-2xl font-bold mb-6 uppercase">Community Feed</h2>
 
-        {/* Post Creator */}
-        <div className="mb-6">
-          <textarea
-            value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
-            placeholder="What's on your mind?"
-            className="w-full p-4 bg-stone-800 border border-white/10 rounded text-white resize-none"
-          />
-          <button
-            onClick={handleCreatePost}
-            className="mt-2 bg-amber-400 cursor-pointer text-black px-4 py-2 rounded hover:bg-amber-300 font-bold"
-          >
-            Post
-          </button>
-        </div>
+        {/* Post Creator - Integrated here */}
+        <PostCreationComponent
+          session={session}
+          onPostCreated={handlePostCreated}
+        />
 
         {/* Posts */}
         <div className="space-y-6">
           {posts.map((post) => (
-            <div
+            <Post
               key={post.id}
-              className="bg-stone-800 p-5 rounded-xl border border-white/10 shadow-sm hover:shadow-lg transition duration-300 hover:scale-[1.01]"
-            >
-              <div className="flex items-center space-x-4 mb-3">
-                <Image
-                  src={post.user.avatar || "/placeholder-avatar.png"}
-                  alt={post.user.fullName}
-                  width={40}
-                  height={40}
-                  className="rounded-full border border-white/20"
-                />
-                <div>
-                  <p className="text-base font-semibold">
-                    {post.user.fullName}
-                  </p>
-                  <p className="text-xs text-white/50 italic">
-                    {new Date(post.createdAt).toLocaleString()}
-                  </p>
-                </div>
-              </div>
-              <p className="mb-3 text-sm text-white/90 leading-relaxed">
-                {post.content}
-              </p>
-              {post.image && (
-                <div className="w-full h-64 overflow-hidden rounded-lg">
-                  <Image
-                    src={post.image}
-                    alt="Post image"
-                    width={400}
-                    height={256}
-                    className="w-full h-full object-cover rounded-lg border border-white/10"
-                  />
-                </div>
-              )}
-            </div>
+              post={post}
+              sessionUserEmail={session?.user?.email || ""}
+              sessionUserRole={session?.user?.role || "USER"}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+            />
           ))}
         </div>
       </div>
@@ -147,7 +168,11 @@ export default function Dashboard() {
         <h2 className="text-2xl font-bold mb-6 uppercase">Upcoming Events</h2>
         <div className="space-y-4">
           {events.map((event) => (
-            <EventCard key={event.id} event={event} />
+            <EventCard
+              key={event.id}
+              event={event}
+              purchasedEvents={purchasedEvents}
+            />
           ))}
         </div>
       </div>

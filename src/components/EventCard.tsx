@@ -9,9 +9,12 @@ interface Event {
 
 interface EventCardProps {
   event: Event;
+  purchasedEvents: string[];
 }
 
-export default function EventCard({ event }: EventCardProps) {
+export default function EventCard({ event, purchasedEvents }: EventCardProps) {
+  const isPurchased = purchasedEvents.includes(event.id);
+
   const handleCheckout = async () => {
     const res = await fetch("/api/checkout", {
       method: "POST",
@@ -41,12 +44,16 @@ export default function EventCard({ event }: EventCardProps) {
       <p className="text-sm text-white/50">
         {new Date(event.startDate).toLocaleDateString()}
       </p>
-      <button
-        onClick={handleCheckout}
-        className="mt-3 bg-amber-400 text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-amber-300 cursor-pointer transition"
-      >
-        Purchase Access – ${event.price.toFixed(2)}
-      </button>
+      {isPurchased ? (
+        <p className="mt-3 text-green-400 font-semibold">You're attending!</p>
+      ) : (
+        <button
+          onClick={handleCheckout}
+          className="mt-3 bg-amber-400 text-black px-4 py-2 rounded-md text-sm font-semibold hover:bg-amber-300 cursor-pointer transition"
+        >
+          Purchase Access – ${event.price.toFixed(2)}
+        </button>
+      )}
     </div>
   );
 }

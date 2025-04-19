@@ -19,7 +19,7 @@ model User {
   resetToken    String?
   resetTokenExpiry DateTime?
 
-  role          Role     @default(USER) // 👈 New field
+  role              Role      @default(USER)
   messagesSent      Message[] @relation("Sender")
   messagesReceived  Message[] @relation("Receiver")
   accounts          Account[]
@@ -99,11 +99,12 @@ model Event {
 model Post {
   id        String   @id @default(uuid())
   content   String
-  photo     String?
+  image     String?
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  authorId  String
-  author    User     @relation("UserPosts", fields: [authorId], references: [id])
+  userId  String
+  user    User     @relation("UserPosts", fields: [userId], references: [id])
 }
 
 model Ticket {

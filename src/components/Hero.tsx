@@ -20,7 +20,7 @@ export default function Hero() {
 
       {/* Hero Content */}
       <div className="relative text-white/65 flex flex-col items-start px-[10%]">
-        <h1 className="text-white text-[5rem] leading-[5.38rem] italic font-bold uppercase">
+        <h1 className="text-white text-[3.5rem] leading-[3.5rem] sm:text-[5rem] sm:leading-[5.38rem] italic font-bold uppercase">
           The Fastest Way to <br />
           <span className="block">
             Become a <span className="text-amber-400 italic">Better</span>

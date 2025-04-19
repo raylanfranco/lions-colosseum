@@ -6,17 +6,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2025-03-31.basil",
 });
 
-console.log("🔥 Incoming webhook hit");
-
 export async function POST(req: Request) {
   const body = await req.text(); // raw body
   const sig = req.headers.get("stripe-signature")!;
-
-  console.log("Method:", req.method);
-  console.log("Headers:", Object.fromEntries(req.headers.entries()));
-  console.log("URL:", req.url);
-  console.log(`We should see something here`, body);
-
+  
   let event: Stripe.Event;
 
   try {

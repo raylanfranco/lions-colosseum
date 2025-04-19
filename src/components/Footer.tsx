@@ -22,11 +22,10 @@ export default function Footer() {
 
         {/* Navigation */}
         <nav className="flex space-x-6 text-sm uppercase font-medium tracking-wider">
-          <Link href="/dashboard">Profile</Link>
-          <Link href="/dashboard/inbox">Inbox</Link>
-          <Link href="/dashboard/settings">Settings</Link>
-          <Link href="/dashboard/admin/events">Events</Link>
-          <Link href="/dashboard/admin/media">Media</Link>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/events">Events</Link>
+          <Link href="/media">Media</Link>
         </nav>
 
         {/* Social */}

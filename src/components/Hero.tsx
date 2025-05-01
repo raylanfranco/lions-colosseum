@@ -67,7 +67,6 @@ export default function Hero() {
   );
 }
 
-// 🔥 Reusable Hero Card Component
 function HeroCard({
   title,
   description,
